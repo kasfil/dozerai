@@ -7,7 +7,7 @@ from telegram.ext import ContextTypes
 
 from aibot.gemini import ask_gemini
 from config import GROUP_PATH, MAX_MSG_CHARS
-from mdconverter import to_telemd
+from helper.mdconverter import to_telemd
 
 base_reply = """To use /ask command, please send a message with your question\\.
 
@@ -70,4 +70,3 @@ async def ask_by_imgs(context: ContextTypes.DEFAULT_TYPE) -> None:
             text=response,
             parse_mode=ParseMode.MARKDOWN_V2,
         )
-

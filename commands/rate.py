@@ -5,7 +5,7 @@ from telegram.ext import ContextTypes
 from aibot.gemini import rate_gemini
 from config import DB_PATH
 from helper.async_sqlite import DB
-from mdconverter import to_telemd
+from helper.mdconverter import to_telemd
 
 
 async def rate_imgs(context: ContextTypes.DEFAULT_TYPE) -> None:

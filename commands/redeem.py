@@ -3,7 +3,7 @@ from telegram.ext import ContextTypes
 
 from config import DB_PATH
 from helper.async_sqlite import DB
-from mdconverter import to_telemd
+from helper.mdconverter import to_telemd
 
 format_reply = "🫨🫨🫨🫨\nOh snap, you just found our secret command. But nothing to see here. we still develop it."  # noqa: E501
 

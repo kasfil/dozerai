@@ -3,7 +3,7 @@ from telegram.ext import ContextTypes
 
 from config import DB_PATH
 from helper.async_sqlite import DB
-from mdconverter import to_telemd
+from helper.mdconverter import to_telemd
 
 # ruff: noqa: E501
 appreciation = {
