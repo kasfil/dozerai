@@ -1,0 +1,51 @@
+[tool.poetry]
+name = "dozer-telebot"
+version = "0.1.0"
+description = "DozerAI telegram bot"
+authors = ["kasfil <kasf@tuta.io>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+python-telegram-bot = { extras = ["job-queue"], version = "^21.6" }
+google-generativeai = "^0.8.3"
+pillow = "^10.4.0"
+telegramify-markdown = "^0.1.13"
+aiosqlite = "^0.20.0"
+flask = "^3.0.3"
+init-data-py = "^0.2.4"
+
+
+[tool.poetry.group.development.dependencies]
+ruff = "^0.6.8"
+black = "^24.8.0"
+
+
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.29.5"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+line-length = 100
+select = [
+    "E",
+    "F",
+    "W",
+    "N",
+    "UP",
+    "S",
+    "BLE",
+    "B",
+    "COM",
+    "C4",
+    "Q",
+    "SIM",
+    "PTH",
+    "PLE",
+    "PLR",
+]
+ignore = ["B904", "PLR0913", "BLE001", "PLR0912", "PLR0911", "PLR0915"]
+target-version = "py311"

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/beercss@3/dist/cdn/beer.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/beercss@3/dist/cdn/beer.min.js"></script>
+    <script src="https://redom.js.org/redom.min.js"></script>
+    <script src="https://kit.fontawesome.com/8163b355aa.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/static/assets/css/main.css">
+    <script src="/static/assets/js/list-imgs.js"></script>
+    <script type="text/javascript">
+        var user = Telegram.WebApp.initDataUnsafe.user
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('/api/images/', { method: 'GET', headers: { Authorization: `Telegram-app ${Telegram.WebApp.initData}` }, })
+                .then(response => response.json())
+                .then(data => showImgs(data));
+        })
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            const userProfileImage = document.getElementById('user-profile');
+            if (!user.photo_url) {
+                userProfileImage.src = "/static/assets/media/alt-profile-pict.jpg";
+            } else {
+                userProfileImage.src = user.photo_url;
+            }
+        });
+
+        Telegram.WebApp.ready();
+    </script>
+</head>
+
+<body>
+    <header>
+        <nav class="top right-align">
+            <h5 class="max center-align">Dashboard</h5>
+            <img alt="Profile" class="circle" id="user-profile">
+        </nav>
+    </header>
+    <main class="responsive" id="main-view"></main>
+</body>
+
+</html>

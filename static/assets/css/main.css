@@ -1,0 +1,40 @@
+body {
+    background: var(--tg-theme-bg-color);
+    color: var(--tg-theme-text-color);
+}
+
+button {
+    background-color: var(--tg-theme-button-color);
+    color: var(--tg-theme-button-text-color);
+}
+
+article {
+    background-color: var(--tg-theme-section-bg-color);
+}
+
+header>nav:is(.top, .bottom) {
+    background-color: var(--tg-theme-bottom-bar-bg-color);
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    color: var(--tg-theme-text-color);
+}
+
+.img-data {
+    color: var(--tg-theme-text-color);
+}
+
+.grid-rating {
+    display: flex;
+    align-items: center;
+}
+
+.grid-timestamp p {
+    text-align: right;
+    color: var(--tg-theme-hint-color);
+}
+
+button.img-rating {
+    color: var(--tg-theme-hint-color);
+    background-color: var(--tg-theme-secondary-bg-color);
+}
