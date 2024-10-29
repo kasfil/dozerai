@@ -55,3 +55,56 @@ def index():
     }
 
     return jsonify(response)
+
+
+@bp.route("/<int:image_id>", methods=("GET", "DELETE"))
+def image_detail_ops(image_id):
+    # Check request header auth
+    auth_token = request.headers.get("Authorization", "")
+    is_valid, user = validate_token(auth_token)
+    if not is_valid or not user:
+        return jsonify({"error": "Invalid authentication token"}), 401
+
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    if request.method == "GET":
+        cursor.execute(
+            """SELECT id, photo_path, caption, rating, comments, created_at
+            FROM user_photos WHERE user_id = ? AND id = ?""",
+            (user.id, image_id),
+        )
+        row = cursor.fetchone()
+        if not row:
+            return jsonify({"error": "Image not found"}), 404
+
+        img = {
+            "id": row[0],
+            "path": url_for("static", filename=row[1]),
+            "caption": row[2],
+            "rating": row[3],
+            "comments": row[4],
+            "created_at": datetime.strptime(row[5], "%Y-%m-%d %H:%M:%S"),
+        }
+
+        cursor.close()
+        conn.close()
+
+        return jsonify(img)
+
+    else:
+        cursor.execute(
+            """SELECT COUNT(*) FROM user_photos WHERE user_id = ? AND id = ?""",
+            (user.id, image_id),
+        )
+        if cursor.fetchone() is None:
+            return jsonify({"error": "Image not found"}), 404
+
+        cursor.execute(
+            """DELETE FROM user_photos WHERE user_id = ? AND id = ?""",
+            (user.id, image_id),
+        )
+        conn.commit()
+        cursor.close()
+        conn.close()
+
+        return "", 204

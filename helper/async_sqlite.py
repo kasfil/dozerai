@@ -71,3 +71,15 @@ class DB:
             res = await res.fetchone()
 
             return res[0] if res else 0
+
+    async def get_image_path(self, image_id: int) -> Path | None:
+        async with aiosqlite.connect(self.db_uri) as con:
+            res = await con.execute(
+                """SELECT photo_path
+                FROM user_photos
+                WHERE id = ?""",
+                (image_id,),
+            )
+            res = await res.fetchone()
+
+            return Path.joinpath(BASE_PATH, "static", res[0]) if res else None

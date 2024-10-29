@@ -1,0 +1,11 @@
+{% extends "base.html.jinja" %}
+{% block title %}Dashboard{% endblock %}
+
+{% block head %}
+  {{ super() }}
+  <script src="/static/assets/js/pages.js"></script>
+  <script>
+    Telegram.WebApp.BackButton.isVisible = true;
+    Telegram.WebApp.ready();
+  </script>
+{% endblock head %}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  {% block head %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% if DEBUG_MODE %}
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  {% endif %}
+  <title>{% block title %}{% endblock %}</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/beercss@3/dist/cdn/beer.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/beercss@3/dist/cdn/beer.min.js"></script>
+  <script src="https://redom.js.org/redom.min.js"></script>
+  <script src="https://kit.fontawesome.com/8163b355aa.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/static/assets/css/main.css">
+  {% endblock %}
+</head>
+
+<body>
+  <header>
+    <nav class="top right-align small-space">
+      <h5 class="max center-align">Dozer AI</h5>
+      <img src="static/assets/media/alt-profile-pict.jpg" alt="Profile" class="circle" id="user-profile">
+    </nav>
+  </header>
+  <main class="responsive" id="main-view"></main>
+</body>
+
+</html>

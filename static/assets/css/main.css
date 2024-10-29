@@ -38,3 +38,12 @@ button.img-rating {
     color: var(--tg-theme-hint-color);
     background-color: var(--tg-theme-secondary-bg-color);
 }
+
+button.destructive {
+    background-color: var(--tg-theme-destructive-text-color);
+    color: var(--tg-theme-button-text-color);
+}
+
+.pagination button:not(.active) {
+  background-color: var(--tg-theme-secondary-bg-color);
+}

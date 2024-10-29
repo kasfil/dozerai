@@ -1,0 +1,9 @@
+{% extends "base.html.jinja" %}
+{% block title %}Image overview{% endblock title %}
+
+{% block head %}
+  {{ super() }}
+  <script>
+    const imgId = {{ image_id }}
+  </script>
+{% endblock head %}

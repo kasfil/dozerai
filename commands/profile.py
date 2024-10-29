@@ -54,7 +54,7 @@ async def profile(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         username=update.effective_user.mention_markdown_v2(),
         token=token,
         image_rated_count=image_rated_count,
-        average_rating=average_rating,
+        average_rating=f"{average_rating:.2f}",
         message=appreciation_message,
     )
 
