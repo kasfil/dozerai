@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS user_photos (
     UNIQUE (user_id, photo_path)
 );
 
+DROP TABLE IF EXISTS user_tokens;
 CREATE TABLE IF NOT EXISTS user_tokens (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER NOT NULL UNIQUE,
