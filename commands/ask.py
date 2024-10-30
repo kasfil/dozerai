@@ -8,6 +8,7 @@ from telegram.ext import ContextTypes
 from aibot.gemini import ask_gemini
 from config import GROUP_PATH, MAX_MSG_CHARS
 from helper.mdconverter import to_telemd
+from helper.msg_sender import send_messages
 
 base_reply = """To use /ask command, please send a message with your question\\.
 
@@ -27,17 +28,7 @@ async def ask(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
     response = await ask_gemini(message)
     converted = to_telemd(response.text)
-
-    # Check if response image is longer than 8000 characters then cut each 8000 characters
-    # and send it as separate message
-    if len(converted) > MAX_MSG_CHARS:
-        for i in range(0, len(converted), MAX_MSG_CHARS):
-            await update.message.reply_markdown_v2(
-                converted[i : i + MAX_MSG_CHARS],
-            )
-
-    else:
-        await update.message.reply_markdown_v2(converted)
+    await send_messages(update, [converted])
 
 
 async def ask_by_imgs(context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -57,16 +48,9 @@ async def ask_by_imgs(context: ContextTypes.DEFAULT_TYPE) -> None:
 
         response = await ask_gemini(caption, imgs)
         response = to_telemd(response.text)
-        await context.bot.send_message(
-            chat_id=current_job.chat_id,  # type: ignore
-            text=response,
-            parse_mode=ParseMode.MARKDOWN_V2,
-        )
+        await send_messages(context, [response])
+
     elif img_path and Path.exists(img_path) and Path(img_path).is_file():
         response = await ask_gemini(caption, [img_path])
         response = to_telemd(response.text)
-        await context.bot.send_message(
-            chat_id=current_job.chat_id,  # type: ignore
-            text=response,
-            parse_mode=ParseMode.MARKDOWN_V2,
-        )
+        await send_messages(context, [response])

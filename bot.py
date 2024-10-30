@@ -4,7 +4,7 @@ import sys
 from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters
 
-from commands import ask, imgprocess, profile, rate, redeem, start, token
+from commands import ask, imgprocess, profile, rate, redeem, start, test, token
 from commands import update as webapp_data
 from config import BOT_TOKEN, DEBUG
 

@@ -6,6 +6,7 @@ from aibot.gemini import rate_gemini
 from config import DB_PATH
 from helper.async_sqlite import DB
 from helper.mdconverter import to_telemd
+from helper.msg_sender import send_messages
 
 
 async def rate_imgs(context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -19,11 +20,7 @@ async def rate_imgs(context: ContextTypes.DEFAULT_TYPE) -> None:
 
     rating, comment = await rate_gemini(caption, img_path)
     response = to_telemd(f"**Rating:** {rating}\n\n" + comment)
-    await context.bot.send_message(
-        chat_id=current_job.chat_id,  # type: ignore
-        text=response,
-        parse_mode=ParseMode.MARKDOWN_V2,
-    )
+    await send_messages(context, [response])
 
     database = DB(DB_PATH)
     last_row_id = await database.save_rating(user_id, img_path, caption, rating, comment)
