@@ -1,15 +1,18 @@
 import logging
-from telegram import Update, error as tele_error
-from telegram.ext import ContextTypes
-from config import GROUP_PATH, MAX_MSG_CHARS
+
+from telegram import Update
+from telegram import error as tele_error
 from telegram.constants import ParseMode
+from telegram.ext import ContextTypes
+
+from config import MAX_MSG_CHARS
 
 
 async def send_messages(sender: Update | ContextTypes.DEFAULT_TYPE, msgs: list[str]) -> None:
     for msg in msgs:
         try:
             if isinstance(sender, Update):
-                await update.message.reply_markdown_v2(msg) # type: ignore
+                await sender.message.reply_markdown_v2(msg)  # type: ignore
             else:
                 await sender.bot.send_message(
                     chat_id=sender.job.chat_id,  # type: ignore
@@ -20,10 +23,10 @@ async def send_messages(sender: Update | ContextTypes.DEFAULT_TYPE, msgs: list[s
             if e.message == "Message is too long":
                 current_idx = 0
                 while current_idx < len(msg):
-                    next_idx = msg.rfind("\n", current_idx, current_idx +MAX_MSG_CHARS)
+                    next_idx = msg.rfind("\n", current_idx, current_idx + MAX_MSG_CHARS)
 
                     if next_idx == -1:
-                        next_idx = msg.rfind(". ", current_idx, current_idx +MAX_MSG_CHARS)
+                        next_idx = msg.rfind(". ", current_idx, current_idx + MAX_MSG_CHARS)
 
                     if next_idx == -1:
                         logging.error("can't find cut point")
@@ -31,11 +34,11 @@ async def send_messages(sender: Update | ContextTypes.DEFAULT_TYPE, msgs: list[s
                         break
 
                     if isinstance(sender, Update):
-                        await update.message.reply_markdown_v2(msg[current_idx : next_idx].strip()) # type: ignore
+                        await sender.message.reply_markdown_v2(msg[current_idx:next_idx].strip())  # type: ignore
                     else:
                         await sender.bot.send_message(
                             chat_id=sender.job.chat_id,  # type: ignore
-                            text=msg[current_idx : next_idx].strip(),
+                            text=msg[current_idx:next_idx].strip(),
                             parse_mode=ParseMode.MARKDOWN_V2,
                         )
                     current_idx = next_idx + 1

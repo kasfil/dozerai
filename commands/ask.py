@@ -2,11 +2,10 @@ import os
 from pathlib import Path
 
 from telegram import Update
-from telegram.constants import ParseMode
 from telegram.ext import ContextTypes
 
 from aibot.gemini import ask_gemini
-from config import GROUP_PATH, MAX_MSG_CHARS
+from config import GROUP_PATH
 from helper.mdconverter import to_telemd
 from helper.msg_sender import send_messages
 

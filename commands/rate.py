@@ -1,5 +1,4 @@
 from telegram import Update
-from telegram.constants import ParseMode
 from telegram.ext import ContextTypes
 
 from aibot.gemini import rate_gemini
