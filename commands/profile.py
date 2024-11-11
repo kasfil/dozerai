@@ -4,6 +4,7 @@ from telegram.ext import ContextTypes
 from config import DB_PATH
 from helper.async_sqlite import DB
 from helper.mdconverter import to_telemd
+from helper.msg_sender import send_messages
 
 # ruff: noqa: E501
 appreciation = {
@@ -58,4 +59,4 @@ async def profile(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         message=appreciation_message,
     )
 
-    await update.message.reply_markdown_v2(to_telemd(reply))
+    await send_messages(update, context, [to_telemd(reply)])

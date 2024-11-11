@@ -27,7 +27,7 @@ async def ask(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
     response = await ask_gemini(message)
     converted = to_telemd(response.text)
-    await send_messages(update, [converted])
+    await send_messages(update, context, [converted])
 
 
 async def ask_by_imgs(context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -47,9 +47,9 @@ async def ask_by_imgs(context: ContextTypes.DEFAULT_TYPE) -> None:
 
         response = await ask_gemini(caption, imgs)
         response = to_telemd(response.text)
-        await send_messages(context, [response])
+        await send_messages(None, context, [response])
 
     elif img_path and Path.exists(img_path) and Path(img_path).is_file():
         response = await ask_gemini(caption, [img_path])
         response = to_telemd(response.text)
-        await send_messages(context, [response])
+        await send_messages(None, context, [response])
