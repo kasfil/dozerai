@@ -6,6 +6,8 @@ BOT_TOKEN = os.getenv("BOT_TOKEN", "")
 GEMINI_TOKEN = os.getenv("GEMINI_TOKEN")
 MAX_MSG_CHARS = int(os.getenv("MAX_MSG_CHARS", 3000))
 
+FUND_REQ_IDLE = int(os.getenv("FUND_REQ_IDLE", 0))
+
 BASE_PATH = Path(__file__).parent
 GROUP_PATH = Path.joinpath(BASE_PATH, "static", "groups")
 IMG_PATH = Path.joinpath(BASE_PATH, "static", "images")
