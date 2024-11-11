@@ -1,13 +1,8 @@
-import os
-from pathlib import Path
-
-from telegram import Update, error as tele_error
-from telegram.constants import ParseMode
+from telegram import Update
 from telegram.ext import ContextTypes
 
-from helper.msg_sender import send_messages
-from config import GROUP_PATH, MAX_MSG_CHARS
 from helper.mdconverter import to_telemd
+from helper.msg_sender import send_messages
 
 base_reply = """# Sample Document
 
@@ -102,7 +97,7 @@ async def test(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         return
 
     converted = to_telemd(base_reply)
-    await send_messages(update, [converted])
+    await send_messages(update, context, [converted])
 
     # # Check if response image is longer than 8000 characters then cut each 8000 characters
     # # and send it as separate message

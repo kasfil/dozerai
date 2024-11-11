@@ -19,7 +19,7 @@ async def rate_imgs(context: ContextTypes.DEFAULT_TYPE) -> None:
 
     rating, comment = await rate_gemini(caption, img_path)
     response = to_telemd(f"**Rating:** {rating}\n\n" + comment)
-    await send_messages(context, [response])
+    await send_messages(None, context, [response])
 
     database = DB(DB_PATH)
     last_row_id = await database.save_rating(user_id, img_path, caption, rating, comment)
