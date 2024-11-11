@@ -1,8 +1,9 @@
 import logging
 import sys
 
-from telegram import Update
-from telegram.ext import Application, CommandHandler, MessageHandler, filters
+from telegram import LinkPreviewOptions, Update
+from telegram.constants import ParseMode
+from telegram.ext import Application, CommandHandler, Defaults, MessageHandler, filters
 
 from commands import ask, imgprocess, profile, rate, redeem, start, token
 from commands import update as webapp_data
@@ -23,13 +24,18 @@ else:
 
 logger = logging.getLogger(__name__)
 
+default = Defaults(
+    parse_mode=ParseMode.MARKDOWN_V2,
+    link_preview_options=LinkPreviewOptions(show_above_text=True),
+)
+
 
 if __name__ == "__main__":
     if not BOT_TOKEN:
         logging.error("No token provided")
         sys.exit(1)
 
-    application = Application.builder().token(BOT_TOKEN).build()
+    application = Application.builder().token(BOT_TOKEN).defaults(default).build()
     application.add_handler(
         MessageHandler(filters.StatusUpdate.WEB_APP_DATA, webapp_data.web_app_data),
     )
